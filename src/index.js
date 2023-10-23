@@ -41,7 +41,6 @@ function createMarkup(arr) {
   return arr
     .map(({ id, name }) => {
       console.log({ id, name });
-
       const options = `<option value=${id}>${name}</option>`;
       elem.select.insertAdjacentHTML('beforeend', options);
     })
@@ -63,6 +62,7 @@ elem.select.addEventListener('change', e => {
     })
     .catch(err => {
       Notify.failure(elem.err.textContent);
+      elem.catImg.innerHTML = '';
     })
     .finally(result => Loading.remove());
 });
@@ -71,13 +71,12 @@ function createMarkupImg(data) {
   if (breeds.length > 0) {
     const { name, description, temperament } = breeds[0];
 
-    const card = `
+    elem.catImg.innerHTML = `
       <img class="cat-img" src="${url}" alt="${name}"  >
        <div class="cat-right">
       <h1 class="name">${name}</h1>
       <p class="description">${description}</p>
       <p class="temperament"><span class="temperament-span">Temperament:</span> ${temperament}</p>
       </div>`;
-    elem.catImg.innerHTML = card;
   }
 }
